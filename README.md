@@ -1,6 +1,6 @@
 # Roomodes
 
-A collection of custom Roo modes for agile software development
+A collection of custom Roo modes for agile software development. With these custom modes the heavy load of long term planning is moved out of the project and promts and into a dedicated system. Thus multiple developers and agents can collaborate on the same large project.
 
 
 ## Setup and configuration

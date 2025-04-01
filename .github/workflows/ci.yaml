@@ -1,0 +1,19 @@
+name: Install Custom Modes
+
+on: [push, pull_request]
+
+jobs:
+  install-modes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install modes
+        run: |
+          chmod +x modes_installer.py
+          ./modes_installer.py --target ./test-project
