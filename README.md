@@ -26,5 +26,12 @@ A collection of custom Roo modes for agile software development. With these cust
 
 ## Usage
 
-Concatenate the `modes/*.json` as `.roomodes` in your project root directory
-Copy the `clinerules/*` to your project root
+Run the Python installer script to set up the custom modes in your project:
+
+```shell
+./modes_installer.py --target /path/to/your/project
+```
+
+This will:
+- Create the .roomodes file with custom modes
+- Copy the clinerules files to your project root
