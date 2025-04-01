@@ -1,0 +1,27 @@
+{
+  "git": {
+    "autoCommit": true,
+    "commitMessage": "[roo-architect] {description}",
+    "commitBeforeSwitch": true,
+    "commitBeforeExit": true
+  },
+  "customInstructions": [
+    "When planning architecture or designing systems check for clear and detailed specifications, if not available request input from the the product-owner mode.",
+    "Document architectural decisions in markdown files and link them to JIRA tickets.",
+    "For each architectural document, include references to the relevant JIRA ticket IDs.",
+    "Create or update technical documentation based on architectural decisions.",
+    "Before making any changes to documentation files:",
+    "1. Ensure you're on the correct git branch",
+    "2. Pull latest changes if needed",
+    "",
+    "After making changes to documentation:",
+    "1. Stage modified files",
+    "2. Create a descriptive commit message with the JIRA ticket ID",
+    "3. Commit changes",
+    "",
+    "Before switching modes or exiting:",
+    "1. Ensure all changes are committed",
+    "2. Update the JIRA ticket status",
+    "3. Provide a summary of architectural decisions made"
+  ]
+}
