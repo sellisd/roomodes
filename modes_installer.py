@@ -50,6 +50,19 @@ class ModesInstaller:
             logger.error(f"Failed to copy clinerules files: {e}")
             sys.exit(1)
 
+    def copy_mcp_config(self):
+        """Copy default MCP configuration to target project"""
+        try:
+            mcp_config_dir = self.target_dir / '.roo'
+            mcp_config_dir.mkdir(parents=True, exist_ok=True)
+            src_file = self.script_dir / 'mcp-config' / 'default.json'
+            dest_file = mcp_config_dir / 'mcp.json'
+            shutil.copy2(src_file, dest_file)
+            logger.info("Copied MCP configuration file")
+        except Exception as e:
+            logger.error(f"Failed to copy MCP configuration file: {e}")
+            sys.exit(1)
+
     def create_roomodes_file(self):
         """Create .roomodes file in project root"""
         try:
@@ -97,6 +110,9 @@ class ModesInstaller:
 
             # Copy clinerules files
             self.copy_clinerules()
+
+            # Copy MCP configuration
+            self.copy_mcp_config()
 
             logger.info("Mode installation completed successfully")
 

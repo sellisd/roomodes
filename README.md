@@ -5,24 +5,10 @@ A collection of custom Roo modes for agile software development. With these cust
 
 ## Setup and configuration
 
-- Get an API key from your atlassian JIRA cloud account
+- Get an API key from your Atlassian JIRA cloud account
 - Use with https://github.com/sooperset/mcp-atlassian
-  configure `.roo/mcp.json` in the root of your project directory
-```shell
-{
-  "mcpServers": {
-    "atlassian": {
-      "command": "uvx",
-      "args": ["mcp-atlassian",
-         "--jira-url=https://domainname.atlassian.net",
-         "--jira-username=email@address.com",
-         "--jira-token=TOKEN" ],
-      "disabled": false,
-      "alwaysAllow": []
-    }
-  }
-}
-```
+- Get a GitHub Token
+- A default MCP configuration will be installed at `.roo/mcp.json` in your project directory
 
 ## Usage
 
@@ -35,3 +21,4 @@ Run the Python installer script to set up the custom modes in your project:
 This will:
 - Create the .roomodes file with custom modes
 - Copy the clinerules files to your project root
+- Copy the mcp configuration for JIRA and GitHub
