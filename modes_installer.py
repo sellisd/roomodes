@@ -62,6 +62,33 @@ class ModesInstaller:
         except Exception as e:
             logger.error(f"Failed to copy MCP configuration file: {e}")
             sys.exit(1)
+    def update_gitignore(self):
+        """Update .gitignore to exclude MCP configuration file"""
+        gitignore_path = self.target_dir / '.gitignore'
+        mcp_ignore_line = '.roo/mcp.json'
+
+        try:
+            # Check if .gitignore exists and if the line is already there
+            if gitignore_path.exists():
+                with gitignore_path.open('r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                if not any(line.strip() == mcp_ignore_line for line in lines):
+                    # Add newline if file doesn't end with one
+                    if lines and not lines[-1].endswith('\n'):
+                        lines.append('\n')
+                    lines.append(f"{mcp_ignore_line}\n")
+                    with gitignore_path.open('w', encoding='utf-8') as f:
+                        f.writelines(lines)
+                    logger.info("Updated .gitignore")
+            else:
+                # Create new .gitignore with the line
+                with gitignore_path.open('w', encoding='utf-8') as f:
+                    f.write(f"{mcp_ignore_line}\n")
+                logger.info("Created .gitignore")
+        except Exception as e:
+            logger.error(f"Failed to update .gitignore: {e}")
+            sys.exit(1)
+
 
     def create_roomodes_file(self):
         """Create .roomodes file in project root"""
@@ -111,8 +138,9 @@ class ModesInstaller:
             # Copy clinerules files
             self.copy_clinerules()
 
-            # Copy MCP configuration
+            # Copy MCP configuration and update gitignore
             self.copy_mcp_config()
+            self.update_gitignore()
 
             logger.info("Mode installation completed successfully")
 
