@@ -32,22 +32,22 @@ class ModesInstaller:
         """Find all JSON files in the source directory"""
         return list(self.source_dir.glob("**/*.json"))
 
-    def copy_clinerules(self):
-        """Copy clinerules files to target project root"""
+    def copy_roorules(self):
+        """Copy roorules files to target project root"""
         try:
-            clinerules_dir = self.script_dir / 'clinerules'
-            if not clinerules_dir.exists():
-                logger.error(f"Clinerules directory not found: {clinerules_dir}")
+            roorules_dir = self.script_dir / 'roorules'
+            if not roorules_dir.exists():
+                logger.error(f"Roorules directory not found: {roorules_dir}")
                 return
 
-            # Copy all .clinerules-* files
-            for rule_file in clinerules_dir.glob('.clinerules-*'):
+            # Copy all .roorules-* files
+            for rule_file in roorules_dir.glob('.roorules-*'):
                 dest_file = self.target_dir / rule_file.name
                 shutil.copy2(rule_file, dest_file)
                 logger.info(f"Copied {rule_file.name}")
 
         except Exception as e:
-            logger.error(f"Failed to copy clinerules files: {e}")
+            logger.error(f"Failed to copy roorules files: {e}")
             sys.exit(1)
 
     def copy_mcp_config(self):
@@ -105,7 +105,7 @@ class ModesInstaller:
             sys.exit(1)
 
     def install_modes(self):
-        """Load mode files, create .roomodes configuration, and copy clinerules"""
+        """Load mode files, create .roomodes configuration, and copy roorules"""
         try:
             # Ensure source directory exists
             if not self.source_dir.exists():
@@ -135,8 +135,8 @@ class ModesInstaller:
             # Create .roomodes file with all modes
             self.create_roomodes_file()
 
-            # Copy clinerules files
-            self.copy_clinerules()
+            # Copy roorules files
+            self.copy_roorules()
 
             # Copy MCP configuration and update gitignore
             self.copy_mcp_config()

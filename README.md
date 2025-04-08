@@ -20,5 +20,5 @@ Run the Python installer script to set up the custom modes in your project:
 
 This will:
 - Create the .roomodes file with custom modes
-- Copy the clinerules files to your project root
+- Copy the roorules files to your project root
 - Copy the mcp configuration for JIRA and GitHub
