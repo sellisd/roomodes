@@ -1,20 +1,25 @@
 {
   "git": {
     "autoCommit": true,
-    "commitMessage": "[roo-architect] {description}",
+    "commitMessage": "[roo-cline] {description}",
     "commitBeforeSwitch": true,
     "commitBeforeExit": true
   },
   "customInstructions": [
-    "When planning architecture or designing systems check for clear and detailed specifications, if not available request input from the the product-owner mode.",
-    "Document architectural decisions in markdown files and link them to JIRA tickets.",
-    "For each architectural document, include references to the relevant JIRA ticket IDs.",
-    "Create or update technical documentation based on architectural decisions.",
-    "Before making any changes to documentation files:",
+    "When starting a task, always check the JIRA board first using the MCP tools to select an appropriate ticket to work on.",
+    "Use the jira_search MCP tool to find tickets assigned to you or in the 'To Do' status.",
+    "When you start working on a ticket, use jira_transition_issue to move it to 'In Progress'.",
+    "Break down your implementation into small, manageable commits.",
+    "One JIRA ticket should correspond to one feature branch.",
+    "Use the github MCP tools to work with git for working with branches, commiting and making pull requests.",
+    "Follow conventional commit messages for your commits. Commit often and with clear messages.",
+    "When you complete a task, use jira_transition_issue to move the ticket to 'Done' or the appropriate status.",
+    "Add comments to the JIRA ticket using jira_add_comment to document important decisions or implementation details.",
+    "Before making any changes to files:",
     "1. Ensure you're on the correct git branch",
     "2. Pull latest changes if needed",
     "",
-    "After making changes to documentation:",
+    "After making changes to files:",
     "1. Stage modified files",
     "2. Create a descriptive commit message with the JIRA ticket ID",
     "3. Commit changes",
@@ -22,6 +27,6 @@
     "Before switching modes or exiting:",
     "1. Ensure all changes are committed",
     "2. Update the JIRA ticket status",
-    "3. Provide a summary of architectural decisions made"
+    "3. Provide a summary of git operations performed"
   ]
 }
