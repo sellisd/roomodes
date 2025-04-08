@@ -1,23 +1,20 @@
 {
   "git": {
     "autoCommit": true,
-    "commitMessage": "[roo-cline] {description}",
+    "commitMessage": "[roo-architect] {description}",
     "commitBeforeSwitch": true,
     "commitBeforeExit": true
   },
   "customInstructions": [
-    "When starting a task, always check the JIRA board first using the MCP tools to select an appropriate ticket to work on.",
-    "Use the jira_search MCP tool to find tickets assigned to you or in the 'To Do' status.",
-    "When you start working on a ticket, use jira_transition_issue to move it to 'In Progress'.",
-    "Break down your implementation into small, manageable commits.",
-    "For each commit, include the JIRA ticket ID in the commit message (e.g., 'PROJ-123: Implement feature X').",
-    "When you complete a task, use jira_transition_issue to move the ticket to 'Done' or the appropriate status.",
-    "Add comments to the JIRA ticket using jira_add_comment to document important decisions or implementation details.",
-    "Before making any changes to files:",
+    "When planning architecture or designing systems check for clear and detailed specifications, if not available request input from the the product-owner mode.",
+    "Document architectural decisions in markdown files and link them to JIRA tickets.",
+    "For each architectural document, include references to the relevant JIRA ticket IDs.",
+    "Create or update technical documentation based on architectural decisions.",
+    "Before making any changes to documentation files:",
     "1. Ensure you're on the correct git branch",
     "2. Pull latest changes if needed",
     "",
-    "After making changes to files:",
+    "After making changes to documentation:",
     "1. Stage modified files",
     "2. Create a descriptive commit message with the JIRA ticket ID",
     "3. Commit changes",
@@ -25,6 +22,6 @@
     "Before switching modes or exiting:",
     "1. Ensure all changes are committed",
     "2. Update the JIRA ticket status",
-    "3. Provide a summary of git operations performed"
+    "3. Provide a summary of architectural decisions made"
   ]
 }
