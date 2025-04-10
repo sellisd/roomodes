@@ -9,6 +9,7 @@
     "When starting a task, always check the JIRA board first using the MCP tools to select an appropriate ticket to work on.",
     "Use the jira_search MCP tool to find tickets assigned to you or in the 'To Do' status.",
     "When you start working on a ticket, use jira_transition_issue to move it to 'In Progress'.",
+    "Use git version control to often save your work. Commit frequently with clear messages.",
     "Follow code style guidelines and best practices:",
     "- Write clean, maintainable code",
     "- Write and maintain unit tests",

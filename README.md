@@ -1,14 +1,6 @@
 # Agile Roo Modes Collection
 
-A comprehensive collection of custom Roo modes that work together as an agile team. This collection enables multiple developers and AI agents to collaborate effectively on large projects by providing specialized roles with clear responsibilities and interaction patterns.
-
-## Features
-
-- **Specialized Agile Roles**: Five distinct modes covering key agile team roles
-- **Integrated Workflows**: Clear interaction patterns between modes
-- **External Integration**: Built-in support for Jira and GitHub
-- **Customizable Rules**: Role-specific behaviors and permissions
-- **Easy Installation**: Simple setup process for any project
+A collection of custom Roo modes that work together as an agile team. This collection enables multiple developers and AI agents to collaborate effectively on large projects by providing specialized roles with clear responsibilities and interaction patterns.
 
 ## Available Modes
 
@@ -26,14 +18,14 @@ A comprehensive collection of custom Roo modes that work together as an agile te
 - Scrum ceremonies facilitation
 - Impediment removal
 
-### Tech Lead Mode
+### Tech Lead Mode (modified default architect)
 - Technical decision making
 - Architecture review and planning
 - Code standards enforcement
 - Technical debt management
 - Design pattern guidance
 
-### Developer Mode
+### Developer Mode (modified default code)
 - Code implementation
 - Unit testing
 - Code review
@@ -99,26 +91,6 @@ sequenceDiagram
 
 ## Best Practices
 
-### Mode Selection
-- Choose the appropriate mode based on your current task
-- Switch modes when transitioning between different responsibilities
-- Use mode-specific tools and capabilities effectively
-
-### Documentation
-- Each mode maintains its specific documentation
-- Cross-reference documents between modes when needed
-- Use standardized templates for consistency
-
-### Workflow Integration
-- Follow the established mode interaction patterns
-- Use Jira for task tracking and management
-- Maintain GitHub integration for code management
-
-### Quality Assurance
-- Each mode has built-in quality checks
-- Follow role-specific best practices
-- Maintain continuous feedback loops
-
 ## Development Guidelines
 
 ### Adding New Modes
@@ -133,32 +105,7 @@ sequenceDiagram
 3. Test mode interactions
 4. Update documentation
 
-### Contributing
-1. Fork the repository
-2. Create feature branch
-3. Submit pull request
-4. Add tests and documentation
-
-## Troubleshooting
-
-### Common Issues
-- **Mode Switching Failed**: Check file permissions and git status
-- **MCP Integration Error**: Verify API credentials
-- **Rule Conflicts**: Review mode definitions and rules
-
-### Support
-- Check documentation in `docs/` directory
-- Submit issues via GitHub
-- Contact maintainers for support
 
 ## License
 
 MIT License - See [LICENSE](LICENSE) for details
-
-## Future Enhancements
-
-- Additional specialized modes
-- Enhanced automation capabilities
-- Extended template library
-- Advanced workflow patterns
-- Custom MCP server integrations

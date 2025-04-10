@@ -43,13 +43,18 @@ def setup_mcp_config(target_dir):
     mcp_dir = Path(target_dir) / ".roo"
     create_directory(mcp_dir)
     
-    # Copy MCP configuration
-    source_config = Path("mcp-config/default.json")
+    # Check for existing MCP configuration
     dest_config = mcp_dir / "mcp.json"
-    
+    if dest_config.exists():
+        print(f"\n⚠️  Notice: Existing MCP configuration found at {dest_config}")
+        print("    Preserving existing configuration. If you need to update it, please do so manually.")
+        return
+
+    # Copy new MCP configuration only if none exists
+    source_config = Path("mcp-config/default.json")
     if source_config.exists():
         shutil.copy2(source_config, dest_config)
-        print(f"Copied MCP configuration to {dest_config}")
+        print(f"Copied new MCP configuration to {dest_config}")
     else:
         print("Warning: MCP configuration template not found")
 
@@ -79,7 +84,7 @@ def main():
     print("\nSetting up MCP configuration...")
     setup_mcp_config(target_dir)
 
-    print("\nInstallation complete! Please configure your JIRA and GitHub credentials in .roo/mcp.json")
+    print("\nInstallation complete!")
     print("\nAvailable modes:")
     print("- Product Owner (product-owner)")
     print("- Scrum Master (scrum-master)")
