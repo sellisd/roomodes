@@ -26,7 +26,9 @@ class ModesInstaller:
         
         self.source_dir = Path(source_dir)
         self.target_dir = Path(target_dir)
-        self.custom_modes = []
+        # Base directory for modes in the target project
+        self.roo_dir = self.target_dir / '.roo'
+        self.modes_dir = self.roo_dir / 'modes'
 
     def find_mode_files(self):
         """Find all JSON files in the source directory"""
@@ -63,57 +65,59 @@ class ModesInstaller:
             logger.error(f"Failed to copy MCP configuration file: {e}")
             sys.exit(1)
     def update_gitignore(self):
-        """Update .gitignore to exclude MCP configuration file"""
+        """Add .roo/mcp.json to .gitignore"""
         gitignore_path = self.target_dir / '.gitignore'
-        mcp_ignore_line = '.roo/mcp.json'
+        pattern = '.roo/mcp.json'
 
         try:
-            # Check if .gitignore exists and if the line is already there
             if gitignore_path.exists():
-                with gitignore_path.open('r', encoding='utf-8') as f:
-                    lines = f.readlines()
-                if not any(line.strip() == mcp_ignore_line for line in lines):
-                    # Add newline if file doesn't end with one
-                    if lines and not lines[-1].endswith('\n'):
-                        lines.append('\n')
-                    lines.append(f"{mcp_ignore_line}\n")
-                    with gitignore_path.open('w', encoding='utf-8') as f:
-                        f.writelines(lines)
-                    logger.info("Updated .gitignore")
+                # Append to existing file if pattern not present
+                with gitignore_path.open('r+', encoding='utf-8') as f:
+                    if pattern not in f.read():
+                        f.write(f'\n{pattern}\n')
             else:
-                # Create new .gitignore with the line
+                # Create new file with pattern
                 with gitignore_path.open('w', encoding='utf-8') as f:
-                    f.write(f"{mcp_ignore_line}\n")
-                logger.info("Created .gitignore")
+                    f.write(f'{pattern}\n')
         except Exception as e:
             logger.error(f"Failed to update .gitignore: {e}")
             sys.exit(1)
 
 
-    def create_roomodes_file(self):
-        """Create .roomodes file in project root"""
+    def install_mode(self, src_file: Path):
+        """Install a single mode into its own directory under .roo/modes"""
         try:
-            config = {
-                "customModes": self.custom_modes
-            }
-            roomodes_file = self.target_dir / '.roomodes'
-            with roomodes_file.open('w', encoding='utf-8') as f:
-                json.dump(config, f, indent=2)
-            logger.info("Created .roomodes configuration file")
+            # Read source file
+            with src_file.open('r', encoding='utf-8') as f:
+                mode_data = json.load(f)
+                
+            # Create mode directory using slug
+            mode_slug = mode_data['slug']
+            mode_dir = self.modes_dir / mode_slug
+            mode_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Write mode.json in the mode directory
+            mode_file = mode_dir / 'mode.json'
+            with mode_file.open('w', encoding='utf-8') as f:
+                json.dump(mode_data, f, indent=2)
+                
+            logger.info(f"Installed mode: {mode_slug}")
+            
         except Exception as e:
-            logger.error(f"Failed to create .roomodes file: {e}")
-            sys.exit(1)
+            logger.error(f"Failed to install mode {src_file.name}: {e}")
+            return False
+        return True
 
     def install_modes(self):
-        """Load mode files, create .roomodes configuration, and copy roorules"""
+        """Install modes into directory structure and copy configuration"""
         try:
             # Ensure source directory exists
             if not self.source_dir.exists():
                 logger.error(f"Source directory not found: {self.source_dir}")
                 sys.exit(1)
 
-            # Create target directory if it doesn't exist
-            self.target_dir.mkdir(parents=True, exist_ok=True)
+            # Create modes directory structure
+            self.modes_dir.mkdir(parents=True, exist_ok=True)
 
             # Find mode files
             mode_files = self.find_mode_files()
@@ -121,28 +125,23 @@ class ModesInstaller:
                 logger.error(f"No mode files found in {self.source_dir}")
                 return
 
-            # Load each mode file
+            # Install each mode file
+            success = True
             for src_file in mode_files:
-                try:
-                    # Read source file
-                    with src_file.open('r', encoding='utf-8') as f:
-                        mode_data = json.load(f)
-                        self.custom_modes.append(mode_data)
-                    logger.info(f"Loaded mode: {src_file.name}")
-                except Exception as e:
-                    logger.error(f"Failed to load {src_file.name}: {e}")
-
-            # Create .roomodes file with all modes
-            self.create_roomodes_file()
-
-            # Copy roorules files
-            self.copy_roorules()
+                if not self.install_mode(src_file):
+                    success = False
 
             # Copy MCP configuration and update gitignore
             self.copy_mcp_config()
             self.update_gitignore()
 
-            logger.info("Mode installation completed successfully")
+            # Copy roorules files (optional as they might be packaged differently)
+            self.copy_roorules()
+
+            if success:
+                logger.info("Mode installation completed successfully")
+            else:
+                logger.warning("Mode installation completed with some errors")
 
         except Exception as e:
             logger.error(f"Installation failed: {e}")
